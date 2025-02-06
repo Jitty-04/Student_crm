@@ -28,6 +28,21 @@ class Delete_details(View):
         data=Student_details.objects.get(id=id).delete()
         return render(request,'delete.html')
   
+class Update_details(View):
+    def get(self,request,**kwargs):
+        id=kwargs.get("pk")
+        data=Student_details.objects.get(id=id)
+        form=Student_form(instance=data)
+        return render(request,"update.html",{"form":form})
+    def post(self,request,**kwargs):
+        id=kwargs.get("pk")
+        data=Student_details.objects.get(id=id)
+        form=Student_form(request.POST,instance=data)
+        if form.is_valid():
+            form.save()
+        return render(request,"update.html",{"form":form})
+        
+
         
 
 
